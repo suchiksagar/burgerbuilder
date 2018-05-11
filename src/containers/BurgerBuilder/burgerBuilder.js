@@ -42,10 +42,12 @@ class BurgerBuilder extends Component {
     return (
         <Aux>
           <Burger ingredients = {this.state.ingredients}/>
-          <BuildControls ingredientAdded = {this.addIngredientHnadler()} />
+          <BuildControls ingredientAdded = {this.addIngredientHnadler} />
         </Aux>
     );
   }
 }
+
+/** <Burger ingredients = {{}}/> */
 
 export default BurgerBuilder;
