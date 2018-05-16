@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/checkoutSummary.js';
+import {Route} from 'react-router-dom';
+import ContactData from './ContactData/contactData';
 
 class Checkout extends Component {
 
@@ -12,10 +14,34 @@ class Checkout extends Component {
         }
     }
 
+    //instead of location search and retrieve search you may pass location.state object any cutom object and access it directly as desired
+    componentDidMount () {
+        const query = new URLSearchParams(this.props.location.search);
+        const ingredients = {};
+        for(let param of query.entries()){
+            ingredients[param[0]] = +param[1];
+        }
+        this.setState({ingredients : ingredients});
+    }
+
+    checkoutCancelledHandler = () => {
+        this.props.history.goBack();
+    }
+
+    checkoutContinueHandler = () => {
+        this.props.history.replace('checkout/contact-data');
+    }
+
     render () {
         return (
             <div>
-                <CheckoutSummary ingredients={this.state.ingredients} />
+                <CheckoutSummary 
+                    ingredients={this.state.ingredients} 
+                    checkoutCancelled={this.checkoutCancelledHandler} 
+                    checkoutContinued={this.checkoutContinueHandler} />
+                <Route 
+                    path={this.props.match.path + '/contact-data'} 
+                    component = {ContactData} />
             </div>
         );
     }
