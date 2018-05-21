@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mykubeburger
+  labels:
+    app: burgerbuilder
+spec: 
+  containers: 
+  - name: myburger
+    image: wintersoldier/burgerbuilder:latest
+    ports:
+    - containerPort: 3000
